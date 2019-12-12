@@ -36,17 +36,25 @@ axios
           Using that array, iterate over it, requesting data for each user, creating a new card for each
           user, and adding that card to the DOM.
 */
-const friendUrl = "https://api.github.com/users/scratchglory/followers ";
-axios
-  .get(friendUrl)
-  .then(res => {
-    console.log(res);
-  })
-  .catch(err => {
-    console.log(err);
-  });
-
-const followersArray = [];
+let friendUrl = "https://api.github.com/users/";
+const followersArray = [
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell"
+];
+followersArray.forEach(person => {
+  const userUrl = friendUrl.concat(person);
+  axios
+    .get(userUrl)
+    .then(res => {
+      createCard(res);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+});
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -120,6 +128,10 @@ function createCard(obj) {
   followers.textContent = `Followers: ${data.followers}`;
   following.textContent = `Following: ${data.following}`;
 
-  console.log(data);
   return card;
 }
+
+// Stretch
+// Calendar
+// const calendar = document.getElementsByClassName("calendar");
+// calendar.style.margin = "25px 0px";
